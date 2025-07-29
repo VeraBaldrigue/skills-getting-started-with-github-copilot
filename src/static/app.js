@@ -20,32 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        // Cria a lista de participantes
-        let participantsHTML = "";
-        if (details.participants.length > 0) {
-          participantsHTML = `
-            <div style="margin-top: 10px;">
-              <strong>Participantes:</strong>
-              <ul style="margin-top: 5px; margin-left: 20px;">
-                ${details.participants.map(p => `<li style="padding: 2px 0;">${p}</li>`).join("")}
-              </ul>
-            </div>
-          `;
-        } else {
-          participantsHTML = `
-            <div style="margin-top: 10px;">
-              <strong>Participantes:</strong>
-              <p style="color: #888; font-style: italic;">Nenhum participante inscrito ainda.</p>
-            </div>
-          `;
-        }
-
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
-          <p><strong>Horário:</strong> ${details.schedule}</p>
-          <p><strong>Vagas disponíveis:</strong> ${spotsLeft}</p>
-          ${participantsHTML}
+          <p><strong>Schedule:</strong> ${details.schedule}</p>
+          <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
         `;
 
         activitiesList.appendChild(activityCard);
@@ -83,22 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
-      } else {   } else {
-        messageDiv.textContent = result.message || "Failed to sign up. Please try again.";        messageDiv.textContent = result.detail || "An error occurred";
-
-
-
-
-
-
-
-
-
-
-
-
-
-});  fetchActivities();  // Initial fetch of activities  });    }      console.error("Error signing up for activity:", error);      messageDiv.className = "error";      messageDiv.textContent = "An error occurred. Please try again later.";    } catch (error) {      }        messageDiv.className = "error";        messageDiv.className = "error";
+      } else {
+        messageDiv.textContent = result.detail || "An error occurred";
+        messageDiv.className = "error";
       }
 
       messageDiv.classList.remove("hidden");
